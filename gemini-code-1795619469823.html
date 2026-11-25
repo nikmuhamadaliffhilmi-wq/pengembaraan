@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misi Pengembaraan Hijrah</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #49321e;
+  background: linear-gradient(180deg, #a9dcf0, #f9df9c);
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+.primary {
+  background: #ed9d35;
+  color: #422c1b;
+}
+
+.green {
+  background: #378969;
+  color: white;
+}
+
+.light {
+  background: #fff8e8;
+  color: #49341e;
+}
+
+.red {
+  background: #c93636 !important;
+  color: white !important;
+}
+
+.correct {
+  background: #3e9b5c !important;
+  color: white !important;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.screen {
+  display: none;
+  max-width: 1000px;
+  margin: auto;
+  min-height: 90vh;
+  padding: 24px;
+  text-align: center;
+}
+
+.screen.active {
+  display: block;
+}
+
+.card {
+  background: rgba(255, 248, 232, 0.96);
+  border-radius: 25px;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(76, 49, 25, 0.18);
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: clamp(32px, 6vw, 58px);
+  margin: 15px 0;
+}
+
+h2 {
+  color: #307b60;
+}
+
+.subtitle {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.music-box {
+  background: #fff8e8;
+  border: 2px solid #edc77b;
+  border-radius: 15px;
+  padding: 12px;
+  margin: 10px auto 20px;
+  max-width: 420px;
+}
+
+.music-status {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+  color: #624a32;
+}
+
+.map {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.location {
+  min-height: 100px;
+  background: #f1d18b;
+  color: #49321e;
+  border: 3px solid #378969;
+  border-radius: 18px;
+  padding: 15px;
+  font-size: 17px;
+}
+
+.location.completed {
+  background: #b8dfba;
+}
+
+.location.challenge {
+  background: #f4b66b;
+}
+
+.fact {
+  background: white;
+  border-left: 6px solid #378969;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 12px auto;
+  max-width: 700px;
+  text-align: left;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.answers {
+  display: grid;
+  gap: 12px;
+  max-width: 650px;
+  margin: 20px auto;
+}
+
+.answer {
+  background: white;
+  border: 3px solid #d9b875;
+  text-align: left;
+  font-size: 17px;
+}
+
+.answer.wrong {
+  background: #d94747;
+  color: white;
+  border-color: #a81717;
+}
+
+.answer.correct {
+  background: #45a860;
+  color: white;
+  border-color: #237238;
+}
+
+.feedback {
+  display: none;
+  padding: 18px;
+  border-radius: 15px;
+  margin: 20px auto;
+  max-width: 600px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.feedback.show {
+  display: block;
+}
+
+.feedback.wrong-feedback {
+  background: #ffe0e0;
+  color: #a81818;
+}
+
+.feedback.correct-feedback {
+  background: #dff5df;
+  color: #207039;
+}
+
+.big-x {
+  font-size: 55px;
+  color: #c93636;
+}
+
+.big-check {
+  font-size: 55px;
+  color: #3e9b5c;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.small-note {
+  font-size: 14px;
+  color: #624a32;
+  line-height: 1.5;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <!-- MENU UTAMA -->
+  <section id="home" class="screen active">
+    <div class="card">
+      <div class="music-box">
+        <button class="green" onclick="playMusic('home')">▶ MAIN MUZIK</button>
+        <button class="light" onclick="stopMusic()">■ MATI</button>
+        <div id="musicStatus">Muzik dimatikan</div>
+      </div>
+
+      <p class="small-note">PENGEMBARAAN ILMU · TAHUN 3</p>
+      <h1>MISI PENGEMBARAAN HIJRAH</h1>
+      <p class="subtitle">
+        Jelajah padang pasir, kenali kisah Hijrah dan selesaikan lima cabaran.
+      </p>
+
+      <button class="primary" onclick="showScreen('instructions')">
+        MULA PENGEMBARAAN →
+      </button>
+    </div>
+  </section>
+
+  <!-- CARA BERMAIN -->
+  <section id="instructions" class="screen">
+    <div class="card">
+      <div class="music-box">
+        <button class="green" onclick="playMusic('instructions')">▶ MAIN MUZIK</button>
+        <button class="light" onclick="stopMusic()">■ MATI</button>
+        <div id="musicStatus2">Muzik dimatikan</div>
+      </div>
+
+      <h2>Cara Bermain</h2>
+      <p class="subtitle">
+        Pilih lokasi pada peta. Baca fakta di setiap lokasi dan jawab cabaran.
+        Jika jawapan salah, cuba semula sehingga mendapat jawapan yang betul.
+      </p>
+
+      <button class="primary" onclick="showScreen('map')">
+        LIHAT PETA →
+      </button>
+    </div>
+  </section>
+
+  <!-- PETA -->
+  <section id="map" class="screen">
+    <div class="card">
+      <div class="music-box">
+        <button class="green" onclick="playMusic('map')">▶ MAIN MUZIK</button>
+        <button class="light" onclick="stopMusic()">■ MATI</button>
+        <div id="musicStatus3">Muzik dimatikan</div>
+      </div>
+
+      <p class="small-note">PILIH LOKASI</p>
+      <h2>Peta Pengembaraan</h2>
+      <p>Tekan lokasi untuk meneruskan pengembaraan.</p>
+
+      <div id="mapLocations" class="map"></div>
+
+      <button class="light" onclick="showScreen('home')">
+        ← MENU UTAMA
+      </button>
+    </div>
+  </section>
+
+  <!-- MAKLUMAT LOKASI -->
+  <section id="info" class="screen">
+    <div class="card">
+      <div class="music-box">
+        <button class="green" onclick="playCurrentMusic()">▶ MAIN MUZIK</button>
+        <button class="light" onclick="stopMusic()">■ MATI</button>
+        <div id="musicStatus4">Muzik dimatikan</div>
+      </div>
+
+      <h2 id="infoTitle"></h2>
+      <div id="facts"></div>
+
+      <button class="green" onclick="showScreen('map')">
+        ← KEMBALI KE PETA
+      </button>
+    </div>
+  </section>
+
+  <!-- CABARAN -->
+  <section id="quiz" class="screen">
+    <div class="card">
+      <div class="music-box">
+        <button class="green" onclick="playCurrentMusic()">▶ MAIN MUZIK</button>
+        <button class="light" onclick="stopMusic()">■ MATI</button>
+        <div id="musicStatus5">Muzik dimatikan</div>
+      </div>
+
+      <p class="small-note">CABARAN PENGEMBARA</p>
+      <h2 id="quizTitle"></h2>
+      <p id="question"></p>
+
+      <div id="answers" class="answers"></div>
+
+      <div id="wrongFeedback" class="feedback wrong-feedback">
+        <div class="big-x">✕</div>
+        Jawapan belum betul. Cuba lagi!
+      </div>
+
+      <div id="correctFeedback" class="feedback correct-feedback">
+        <div class="big-check">✓</div>
+        Jawapan betul! Tahniah!
+      </div>
+
+      <button id="backMapButton" class="light" onclick="showScreen('map')">
+        ← KEMBALI KE PETA
+      </button>
+    </div>
+  </section>
+
+  <!-- TAMAT -->
+  <section id="finish" class="screen">
+    <div class="card">
+      <div class="music-box">
+        <button class="green" onclick="playMusic('finish')">▶ MAIN MUZIK</button>
+        <button class="light" onclick="stopMusic()">■ MATI</button>
+        <div id="musicStatus6">Muzik dimatikan</div>
+      </div>
+
+      <div class="big-check">✓</div>
+      <h1>Tahniah!</h1>
+      <p class="subtitle">
+        Kamu telah berjaya menyelesaikan Misi Pengembaraan Hijrah.
+      </p>
+
+      <button class="green" onclick="showScreen('map')">
+        ← KEMBALI KE PETA
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const locations = [
+  {
+    id: "makkah",
+    name: "Kota Makkah",
+    type: "info",
+    facts: [
+      "Makkah ialah tempat kelahiran Nabi Muhammad SAW.",
+      "Kaabah terletak di Masjidil Haram.",
+      "Makkah merupakan kota suci umat Islam.",
+      "Umat Islam menghadap Kaabah ketika solat.",
+      "Hijrah bermula dari kota Makkah."
+    ]
+  },
+  {
+    id: "persediaan",
+    name: "Misi Persediaan",
+    type: "info",
+    facts: [
+      "Perjalanan memerlukan persediaan yang teliti.",
+      "Kita perlu merancang sebelum melakukan sesuatu.",
+      "Bekalan makanan dan minuman perlu disediakan.",
+      "Kerjasama membantu perjalanan menjadi lebih mudah.",
+      "Kita perlu bertawakal kepada Allah."
+    ]
+  },
+  {
+    id: "thur",
+    name: "Gua Thur",
+    type: "info",
+    facts: [
+      "Gua Thur menjadi tempat persembunyian sementara.",
+      "Gua ini terletak di sebuah bukit berhampiran Makkah.",
+      "Perancangan yang baik membantu keselamatan perjalanan.",
+      "Allah melindungi hamba-Nya yang berusaha.",
+      "Kita belajar supaya sentiasa berani dan tenang."
+    ]
+  },
+  {
+    id: "jejak",
+    name: "Jejak Perjalanan",
+    type: "info",
+    facts: [
+      "Perjalanan Hijrah dilakukan dengan penuh kesabaran.",
+      "Jalan yang jauh memerlukan ketahanan diri.",
+      "Kita hendaklah saling membantu.",
+      "Setiap cabaran boleh dihadapi dengan usaha.",
+      "Allah sentiasa mengetahui usaha hamba-Nya."
+    ]
+  },
+  {
+    id: "madinah",
+    name: "Kota Madinah",
+    type: "info",
+    facts: [
+      "Madinah menjadi tempat Rasulullah SAW berhijrah.",
+      "Madinah juga dikenali sebagai kota yang bercahaya.",
+      "Penduduk Madinah membantu golongan Muhajirin.",
+      "Persaudaraan menjadi asas masyarakat Islam.",
+      "Kita perlu menghormati dan membantu orang lain."
+    ]
+  },
+  {
+    id: "qmakkah",
+    name: "Cabaran Makkah",
+    type: "quiz",
+    question: "Apakah nama kota suci tempat Hijrah bermula?",
+    answers: ["Madinah", "Makkah", "Taif", "Jeddah"],
+    correct: 1
+  },
+  {
+    id: "qpersediaan",
+    name: "Cabaran Persediaan",
+    type: "quiz",
+    question: "Apakah perkara penting sebelum memulakan perjalanan?",
+    answers: ["Tidur sepanjang hari", "Bermain sahaja", "Membuat persediaan", "Melupakan bekalan"],
+    correct: 2
+  },
+  {
+    id: "qthur",
+    name: "Cabaran Gua Thur",
+    type: "quiz",
+    question: "Apakah sikap yang baik ketika menghadapi cabaran?",
+    answers: ["Putus asa", "Berani dan tenang", "Marah", "Cuai"],
+    correct: 1
+  },
+  {
+    id: "qjejak",
+    name: "Cabaran Perjalanan",
+    type: "quiz",
+    question: "Apakah nilai yang penting ketika berjalan jauh?",
+    answers: ["Sabar", "Malas", "Sombong", "Mementingkan diri"],
+    correct: 0
+  },
+  {
+    id: "qakhir",
+    name: "Misi Terakhir",
+    type: "quiz",
+    question: "Apakah pengajaran utama daripada Hijrah?",
+    answers: ["Berusaha dan bertawakal", "Berputus asa", "Tidak mahu membantu", "Menyerah"],
+    correct: 0
+  }
+];
+
+let completed = [];
+let currentLocation = null;
+let currentMusic = null;
+let audioContext = null;
+let musicTimer = null;
+
+const melodies = {
+  home: [261, 329, 392, 329],
+  instructions: [293, 349, 440, 349],
+  map: [220, 277, 330, 277],
+  makkah: [261, 311, 392, 311],
+  persediaan: [247, 294, 370, 294],
+  thur: [196, 247, 294, 247],
+  jejak: [220, 262, 330, 262],
+  madinah: [262, 330, 392, 523],
+  qmakkah: [330, 392, 494, 392],
+  qpersediaan: [294, 370, 440, 370],
+  qthur: [247, 330, 392, 330],
+  qjejak: [220, 330, 440, 330],
+  qakhir: [262, 349, 440, 523],
+  finish: [262, 330, 392, 523]
+};
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  if (id === "map") {
+    stopMusic();
+    buildMap();
+  }
+}
+
+function buildMap() {
+  const map = document.getElementById("mapLocations");
+  map.innerHTML = "";
+
+  locations.forEach((location, index) => {
+    const button = document.createElement("button");
+
+    button.className = "location";
+
+    if (location.type === "quiz") {
+      button.classList.add("challenge");
+    }
+
+    if (completed.includes(location.id)) {
+      button.classList.add("completed");
+      button.innerHTML = "✓ " + location.name;
+    } else {
+      button.innerHTML = location.name;
+    }
+
+    button.onclick = () => openLocation(location);
+    map.appendChild(button);
+  });
+}
+
+function openLocation(location) {
+  currentLocation = location;
+  playMusic(location.id);
+
+  if (location.type === "info") {
+    document.getElementById("infoTitle").textContent = location.name;
+
+    const factsBox = document.getElementById("facts");
+    factsBox.innerHTML = "";
+
+    location.facts.forEach(fact => {
+      const div = document.createElement("div");
+      div.className = "fact";
+      div.textContent = fact;
+      factsBox.appendChild(div);
+    });
+
+    showScreen("info");
+  } else {
+    document.getElementById("quizTitle").textContent = location.name;
+    document.getElementById("question").textContent = location.question;
+
+    document.getElementById("wrongFeedback").classList.remove("show");
+    document.getElementById("correctFeedback").classList.remove("show");
+    document.getElementById("backMapButton").classList.remove("hidden");
+
+    const answersBox = document.getElementById("answers");
+    answersBox.innerHTML = "";
+
+    location.answers.forEach((answer, index) => {
+      const button = document.createElement("button");
+      button.className = "answer";
+      button.textContent = answer;
+      button.onclick = () => checkAnswer(button, index);
+      answersBox.appendChild(button);
+    });
+
+    showScreen("quiz");
+  }
+}
+
+function checkAnswer(button, selectedIndex) {
+  const buttons = document.querySelectorAll(".answer");
+
+  buttons.forEach(item => {
+    item.disabled = true;
+  });
+
+  if (selectedIndex === currentLocation.correct) {
+    button.classList.add("correct");
+    document.getElementById("correctFeedback").classList.add("show");
+
+    if (!completed.includes(currentLocation.id)) {
+      completed.push(currentLocation.id);
+    }
+
+    setTimeout(() => {
+      if (completed.filter(id =>
+        locations.find(location => location.id === id)?.type === "quiz"
+      ).length === 5) {
+        stopMusic();
+        showScreen("finish");
+      } else {
+        showScreen("map");
+      }
+    }, 1200);
+
+  } else {
+    button.classList.add("wrong");
+    button.innerHTML += " ✕";
+    document.getElementById("wrongFeedback").classList.add("show");
+
+    setTimeout(() => {
+      buttons.forEach(item => {
+        item.disabled = false;
+      });
+    }, 700);
+  }
+}
+
+function playCurrentMusic() {
+  if (currentLocation) {
+    playMusic(currentLocation.id);
+  }
+}
+
+function playMusic(locationId) {
+  stopMusic();
+
+  currentMusic = locationId;
+
+  try {
+    audioContext = audioContext || new AudioContext();
+
+    const notes = melodies[locationId] || melodies.home;
+    let noteIndex = 0;
+
+    function playNote() {
+      if (!audioContext || currentMusic !== locationId) return;
+
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.value = notes[noteIndex];
+
+      gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(
+        0.045,
+        audioContext.currentTime + 0.05
+      );
+      gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + 0.75
+      );
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.8);
+
+      noteIndex = (noteIndex + 1) % notes.length;
+    }
+
+    playNote();
+    musicTimer = setInterval(playNote, 900);
+    updateMusicStatus("Muzik sedang dimainkan");
+
+  } catch (error) {
+    updateMusicStatus("Tekan sekali lagi untuk memainkan muzik");
+  }
+}
+
+function stopMusic() {
+  if (musicTimer) {
+    clearInterval(musicTimer);
+    musicTimer = null;
+  }
+
+  currentMusic = null;
+  updateMusicStatus("Muzik dimatikan");
+}
+
+function updateMusicStatus(text) {
+  document.querySelectorAll("[id^='musicStatus']").forEach(element => {
+    element.textContent = text;
+  });
+}
+
+buildMap();
+</script>
+
+</body>
+</html>
